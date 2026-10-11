@@ -32,11 +32,19 @@ Learn how password length, character variety, and randomness affect security. Un
 
 ## How does Keyspace create strong passwords and PINs?
 
-Keyspace uses your device's **cryptographically secure random number generator** to create passwords and PINs. Random values help make the results difficult to predict.
+Keyspace uses your device's **cryptographically secure random number generator** to create passwords and PINs. Random values help make generated credentials difficult to predict.
 
-For passwords, you can choose which character types to include, exclude confusing characters, and adjust the length. Keyspace also uses a fair selection method to help prevent certain characters from being favored because of how random values are mapped.
+For passwords, you can choose which character types to include, exclude confusing characters, and adjust the length. For PINs, you can choose any length from 3 to 50 digits.
 
-For PINs, you can choose a length from 3 to 50 digits to generate a numeric code.
+### 🔒 What makes the randomness secure?
+
+Keyspace uses JavaScript's **`crypto.getRandomValues()`** instead of `Math.random()` to generate passwords and PINs.
+
+Unlike `Math.random()`, which is not designed for security-sensitive tasks, `crypto.getRandomValues()` provides cryptographically strong random values suitable for generating credentials.
+
+Keyspace also uses **rejection sampling**, a technique that helps prevent bias when converting random values into password characters. This helps ensure that some characters are not unintentionally favored by the selection process.
+
+Together, these techniques help create passwords and PINs that are harder to predict.
 
 ### How does it help avoid duplicate passwords?
 
